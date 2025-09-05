@@ -17,16 +17,18 @@ RUN apt-get update && apt-get install -y \
 # Set work directory
 WORKDIR /app
 
+# uv setup
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh
+
 # Copy requirements and install Python dependencies
 COPY requirements.txt .
-RUN pip install --upgrade pip && \
-    pip install -r requirements.txt
+RUN uv pip sync
 
 # Copy source code
 COPY . .
 
 # Install MCPUniverse package
-RUN pip install -e .
+RUN uv pip install -e .
 
 # Create non-root user for security
 RUN groupadd -r mcpgateway && useradd -r -g mcpgateway mcpgateway && \
@@ -39,4 +41,4 @@ USER mcpgateway
 EXPOSE 8000
 
 # Default command to run the MCP gateway
-CMD ["python", "-m", "mcpuniverse.mcp.gateway", "--port", "8000", "--mode", "stdio"]
+CMD ["uv", "run", "-m", "mcpuniverse.mcp.gateway", "--port", "8000", "--mode", "stdio"]
