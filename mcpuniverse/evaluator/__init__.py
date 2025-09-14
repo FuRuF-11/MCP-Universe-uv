@@ -13,6 +13,8 @@ from .playwright.functions import *
 from .google_search.functions import *
 from .notion.functions import *
 from .weather.functions import *
+from .custom_domain import *
+
 
 __all__ = [
     "Evaluator",
