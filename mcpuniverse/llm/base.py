@@ -167,7 +167,8 @@ class BaseLLM(ExportConfigMixin, metaclass=ComponentABCMeta):
                 ]
             }
         else:
-            callback_data = response
+            # Ensure callback_data is never None to avoid CallbackMessage validation errors
+            callback_data = response if response is not None else ""
 
         send_message(callbacks, message=CallbackMessage(
             source=self.id, type=MessageType.RESPONSE,
@@ -196,7 +197,7 @@ class BaseLLM(ExportConfigMixin, metaclass=ComponentABCMeta):
 
     async def generate_async(
             self,
-            messages: List[dict[str, str]],
+            messages: List[dict[str, str]] = None,
             tracer: Tracer = None,
             callbacks: BaseCallback | List[BaseCallback] = None,
             **kwargs
