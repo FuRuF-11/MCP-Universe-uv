@@ -1,6 +1,6 @@
 # NoisyIF
 
-现在的Pipline是这样的：用一个ReAct agent调用各类MCP完成一些任务，这些任务产生不同长度的带噪声的long context（8k，12k，20k等等），然后我们以这些context中的信息为基础，构造类似于IFEval的可以解析的指令。然后，（指令+long context）就是我们的benchmark。
+用一个ReAct agent调用各类MCP完成一些任务，这些任务产生不同长度的带噪声的long context（8k，12k，20k等等），然后我们以这些context中的信息为基础，构造类似于IFEval的可以解析的指令。然后，（指令+long context）就是我们的benchmark。
 
 ---
 
@@ -15,6 +15,8 @@ raw_context.jsonl
     "content": data
 }
 ```
+
+500条左右的内容，测试模型的指令跟随能力
 
 
 
